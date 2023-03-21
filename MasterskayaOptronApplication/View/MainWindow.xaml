@@ -1,0 +1,39 @@
+﻿<Window x:Class="MasterskayaOptronApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MasterskayaOptronApplication"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        Title="Мастерская «Оптрон» - Авторизация" Height="500" Width="450" Background="Gray">
+    <Border Background="White" Margin="10" CornerRadius="30">
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Авторизация" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1" Text="Введите логин" FontSize="20" Margin="10, 30, 10, 0"/>
+                <TextBox Text="{Binding Login}" Grid.Row="2" FontSize="20" Margin="10" Padding="5, 2"/>
+
+                <TextBlock Grid.Row="3" Text="Введите пароль" FontSize="20" Margin="10, 30, 10, 0"/>
+                <PasswordBox Name="pswUserPassword" Grid.Row="4" FontSize="20" Margin="10" Padding="5, 2"/>
+
+                <Button Name="buttonEnter" Click="Button_Click" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Height="35" Content="Войти" FontSize="20" Margin="20, 30"/>
+                <Button Name="buttonExit" Click="Button_Click" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="35" Content="Выход" FontSize="20" Margin="20, 30"/>
+            </Grid>
+            <Grid Name="gridLoadScreen" Visibility="{Binding LoadScreen}">
+                <Border Background="White" CornerRadius="30" Opacity="0.8"/>
+                <Label Content="Подождите..." FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
