@@ -89,9 +89,14 @@
     <Compile Include="DbEntity\UserStatus.cs">
       <DependentUpon>MasterskayaOptronModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AdminPanelViewModel.cs" />
     <Compile Include="ViewModel\ApplicationViewModel.cs" />
     <Compile Include="ViewModel\AuthorizationViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Page Include="View\AdminPanelWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\ApplicationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +108,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\AdminPanelWindow.xaml.cs">
+      <DependentUpon>AdminPanelWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ApplicationWindow.xaml.cs">
       <DependentUpon>ApplicationWindow.xaml</DependentUpon>
