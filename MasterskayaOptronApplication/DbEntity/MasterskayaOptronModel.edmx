@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MasterskayaOptronModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MasterskayaOptronModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
@@ -23,6 +23,14 @@
           <Property Name="MiddleName" Type="nvarchar" MaxLength="30" />
           <Property Name="LastName" Type="nvarchar" MaxLength="30" />
           <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="UserStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK__User__UserInfoId__267ABA7A">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
@@ -36,16 +44,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__UserInfo__UserSt__36B12243">
+          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UserStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище MasterskayaOptronModelContainer">
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__User__UserInfoId__267ABA7A" Association="Self.FK__User__UserInfoId__267ABA7A">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK__UserInfo__UserSt__36B12243" Association="Self.FK__UserInfo__UserSt__36B12243">
+            <End Role="UserStatus" EntitySet="UserStatus" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MasterskayaOptronModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -69,6 +93,8 @@
           <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Self.FK__User__UserInfoId__267ABA7A" FromRole="UserInfo" ToRole="User" />
+          <Property Name="UserStatusId" Type="Int32" />
+          <NavigationProperty Name="UserStatus" Relationship="MasterskayaOptronModel.FK__UserInfo__UserSt__36B12243" FromRole="UserInfo" ToRole="UserStatus" />
         </EntityType>
         <Association Name="FK__User__UserInfoId__267ABA7A">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
@@ -89,7 +115,32 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="UserStatus" EntityType="MasterskayaOptronModel.UserStatus" />
+          <AssociationSet Name="FK__UserInfo__UserSt__36B12243" Association="MasterskayaOptronModel.FK__UserInfo__UserSt__36B12243">
+            <End Role="UserStatus" EntitySet="UserStatus" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserInfo" Relationship="MasterskayaOptronModel.FK__UserInfo__UserSt__36B12243" FromRole="UserStatus" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK__UserInfo__UserSt__36B12243">
+          <End Type="MasterskayaOptronModel.UserStatus" Role="UserStatus" Multiplicity="0..1" />
+          <End Type="MasterskayaOptronModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UserStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -109,11 +160,20 @@
           <EntitySetMapping Name="UserInfo">
             <EntityTypeMapping TypeName="MasterskayaOptronModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="MasterskayaOptronModel.UserStatus">
+              <MappingFragment StoreEntitySet="UserStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

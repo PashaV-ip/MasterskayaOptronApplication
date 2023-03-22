@@ -33,5 +33,10 @@ namespace MasterskayaOptronApplication.View
             foreach (Window window in App.Current.Windows)
             window.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //(DataContext as ApplicationViewModel).CheckAdmin();
+        }
     }
 }

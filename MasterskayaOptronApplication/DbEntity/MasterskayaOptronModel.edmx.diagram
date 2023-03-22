@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="MasterskayaOptronModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MasterskayaOptronModel.UserInfo" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="MasterskayaOptronModel.FK__User__UserInfoId__267ABA7A" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MasterskayaOptronModel.UserStatus" Width="1.5" PointX="0.75" PointY="5.375" />
+        <AssociationConnector Association="MasterskayaOptronModel.FK__UserInfo__UserSt__36B12243" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

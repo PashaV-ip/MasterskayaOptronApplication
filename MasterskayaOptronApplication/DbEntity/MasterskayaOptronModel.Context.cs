@@ -27,5 +27,6 @@ namespace MasterskayaOptronApplication.DbEntity
     
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<UserStatus> UserStatus { get; set; }
     }
 }
