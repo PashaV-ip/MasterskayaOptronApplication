@@ -17,26 +17,27 @@ using System.Windows.Shapes;
 namespace MasterskayaOptronApplication.View
 {
     /// <summary>
-    /// Логика взаимодействия для ApplicationWindow.xaml
+    /// Логика взаимодействия для AdminPanelWindow.xaml
     /// </summary>
-    public partial class ApplicationWindow : Window
+    public partial class AdminPanelWindow : Window
     {
-        public ApplicationWindow(User user)
+        public AdminPanelWindow(User user)
         {
             InitializeComponent();
 
-            DataContext = new ApplicationViewModel(user);
+            DataContext = new AdminPanelViewModel(user);
+            foreach (var item in App.Current.Windows)
+            {
+                if (item is MainWindow)
+                {
+                    this.Owner = item as Window;
+                }
+            }
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Window window in App.Current.Windows)
-            window.Close();
-        }
-
-        private void ButtonOpenAdminPanel_Click(object sender, RoutedEventArgs e)
-        {
-            (DataContext as ApplicationViewModel).OpenAdminPanel();
+            (DataContext as AdminPanelViewModel).AddUserDB();
         }
     }
 }

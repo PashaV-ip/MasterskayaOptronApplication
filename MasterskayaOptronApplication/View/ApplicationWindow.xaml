@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterskayaOptronApplication.View"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
         Closed="Window_Closed"
         Title="Мастерская «Оптрон» - Главное окно" Height="450" Width="800">
     <Grid>
@@ -15,11 +14,15 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <TextBlock Name="TextBlockFirstName" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding User.UserInfo.FirstName}" FontSize="25" Margin="30, 0"/>
         <TextBlock Grid.Row="1" Name="TextBlockMiddleName" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding User.UserInfo.MiddleName}" FontSize="25" Margin="30, 0"/>
         <TextBlock Grid.Row="2" Name="TextBlockLastName" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding User.UserInfo.LastName}" FontSize="25" Margin="30, 0"/>
         <TextBlock Grid.Row="3" Name="TextBlockPhone" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding User.UserInfo.Phone}" FontSize="25" Margin="30, 0"/>
-        <DataGrid Visibility="{Binding VisibilityAdminPanel}" Grid.RowSpan="4" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+        <!--<DataGrid Visibility="{Binding VisibilityAdminPanel}" Grid.RowSpan="4" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Password}"/>
@@ -27,7 +30,9 @@
                 <DataGridTextColumn Header="Имя" Binding="{Binding UserInfo.MiddleName}"/>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding UserInfo.LastName}"/>
                 <DataGridTextColumn Header="Телефон" Binding="{Binding UserInfo.Phone}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding UserInfo.UserStatus.Name}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
+        <Button Click="ButtonOpenAdminPanel_Click" IsEnabled="{Binding EnableButton}"  Content="Админ панель" Grid.Column="1" Margin="10" Padding="20, 5" FontSize="20" VerticalAlignment="Center"/>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using MasterskayaOptronApplication.DbEntity;
+using MasterskayaOptronApplication.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace MasterskayaOptronApplication.ViewModel
     {
         private ObservableCollection<User> _users;
         private User _user;
-        private Visibility _visibilityAdminPanel = Visibility.Hidden;
+        private bool _enableButton = true;
         /*private string _firstName;
         private string _middleName;
         private string _lastName;
@@ -44,13 +45,13 @@ namespace MasterskayaOptronApplication.ViewModel
         }*/
         #endregion
 
-        public Visibility VisibilityAdminPanel
+        public bool EnableButton
         {
-            get => _visibilityAdminPanel;
+            get => _enableButton;
             set
             {
-                _visibilityAdminPanel = value;
-                OnPropertyChanged(nameof(VisibilityAdminPanel));
+                _enableButton = value;
+                OnPropertyChanged(nameof(EnableButton));
             }
         }
 
@@ -126,19 +127,21 @@ namespace MasterskayaOptronApplication.ViewModel
             result.ForEach(element => Users?.Add(element));
         }
 
+        public void OpenAdminPanel()
+        {
+            var adminPanel = new AdminPanelWindow(User);
+            adminPanel.Show();
+        }
+
         public ApplicationViewModel(User user)
         {
             Users = new ObservableCollection<User>();
             User = user;
-            if (CheckAdmin())
+            if (!CheckAdmin())
             {
-                VisibilityAdminPanel = Visibility.Visible;
+                EnableButton = false;
             }
             LoadData();
-            /*FirstName = user.UserInfo.FirstName;
-            MiddleName = user.UserInfo.MiddleName;
-            LastName = user.UserInfo.LastName;
-            Phone = user.UserInfo.Phone;*/
         }
     }
 }
